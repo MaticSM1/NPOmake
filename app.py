@@ -1,0 +1,1 @@
+print("zacetek aplikacije")
