@@ -1,0 +1,30 @@
+name: "28585 - CI Deploy"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: izvediVseTeste
+    if: success() 
+
+    steps:
+      - name: Kloniraj repozitorij
+        uses: actions/checkout@v3
+
+      - name: Prijava v DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Zgradi
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my_app:latest .
+
+      - name: Nalozi
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my_app:latest
