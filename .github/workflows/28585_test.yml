@@ -45,5 +45,5 @@ jobs:
 
       - name: izvedi teste
         run: |
-          python3 tests/ena.py || echo "Vses sspesno" > napaka.txt
+          python3 tests/ena.py > ven.log 2>&1 || echo "Vses sspesno" > napaka.txt
 
