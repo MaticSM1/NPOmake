@@ -12,7 +12,7 @@ jobs:
       tests_exist: ${{ steps.check_tests.outputs.tests_exist }}
     steps:
       - name: Nalozi al pa osvezi repozitorij
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Preveri obstoj testnih skript
         id: check_tests
@@ -26,7 +26,7 @@ jobs:
 
       - name: artefakt
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: napaka
           path: napaka.txt
