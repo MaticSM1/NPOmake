@@ -1,15 +1,19 @@
-name: "da na docker"
-
-on:
-  push:
-    branches:
-      - main
+name: "daj na docker"
 
 jobs:
+  izvediVseTeste:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Izvedi testee
+        run: echo "Delam testee"
+
   deploy:
     runs-on: self-hosted
     needs: izvediVseTeste
-    if: success() 
+    if: success()
 
     steps:
       - name: Kloniraj repozitorij
