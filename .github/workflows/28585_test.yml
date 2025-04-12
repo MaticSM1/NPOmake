@@ -50,9 +50,3 @@ jobs:
         run: |
           pytest tests/ || echo "Vses sspesno" > napaka.txt
 
-      - name: napka zapis v dat
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: napaka
-          path: napaka.txt
