@@ -14,7 +14,7 @@ jobs:
       - name: Nalozi al pa osvezi repozitorij
         uses: actions/checkout@v3
 
-      - name: Preveri obstoj testnih skript
+      - name: a obstajajo testi?
         id: check_tests
         run: |
           if ls tests/*.py 1> /dev/null 2> napaka.txt; then
@@ -23,6 +23,13 @@ jobs:
             echo "Ni testov!" >> napaka.txt
             echo "tests_exist=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: artefakt
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: napaka
+          path: napaka.txt
 
   izvedi_teste:
     needs: preveriCeTestObstaja
@@ -45,5 +52,11 @@ jobs:
 
       - name: izvedi teste
         run: |
-          python3 tests/ena.py > ven.log 2>&1 || echo "Vses sspesno" > napaka.txt
+          python3 tests/ena.py || echo "Vses sspesno" > napaka.txt
 
+      - name: napka zapis v dat
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: napaka
+          path: napaka.txt
