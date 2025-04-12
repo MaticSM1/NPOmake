@@ -31,7 +31,7 @@ jobs:
           name: napaka
           path: napaka.txt
 
-  izvedi_teste:
+  izvediVseTeste:
     needs: preveriCeTestObstaja
     runs-on: ubuntu-latest
     if: needs.preveriCeTestObstaja.outputs.tests_exist == 'true'
