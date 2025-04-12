@@ -1,5 +1,13 @@
 name: "daj na docker"
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   izvediVseTeste:
     runs-on: ubuntu-latest
@@ -16,7 +24,7 @@ jobs:
     if: success()
 
     steps:
-      - name: Kloniraj repozitorij
+      - name: Kloniraj repozitorij :)
         uses: actions/checkout@v3
 
       - name: Prijava v DockerHub
