@@ -1,4 +1,4 @@
-name: "28585_test"
+name: "28585 - CI Testiranje"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   preveriCeTestObstaja:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       tests_exist: ${{ steps.check_tests.outputs.tests_exist }}
     steps:
@@ -24,16 +24,9 @@ jobs:
             echo "tests_exist=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: artefakt
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: napaka
-          path: napaka.txt
-
   izvedi_teste:
     needs: preveriCeTestObstaja
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     if: needs.preveriCeTestObstaja.outputs.tests_exist == 'true'
 
     strategy:
